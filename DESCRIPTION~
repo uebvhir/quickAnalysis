@@ -1,0 +1,11 @@
+Package: quickAnalysis
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: c(person("Sanchez", "Alex", email = "alex.sanchez@vhir.org", role = c("aut", "cre")), person("Mota", "Miriam", email = "miriam.mota@vhir.org", role = c("aut")))
+Description: What the package does (one paragraph).
+Depends:
+    R (>= 3.3.1),beeswarm,multtest,limma,xlsx,hwriter
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
