@@ -25,11 +25,11 @@ quickAnalysis(expres, groupingVar, min, sust, aFName = "Results",
 
 \item{pvalThreshold}{setting the threshold p-value. Default value is 1.}
 
-\item{useAdjP}{a logical value indicating use adjust p-value.}
+\item{useAdjP}{a logical value indicating use adjust p-value. Default value is TRUE.}
 
-\item{plotSelected}{A logical value indicating whether the output is a plot.}
+\item{plotSelected}{A logical value indicating whether the output is a plot. Default value is TRUE.}
 
-\item{plot2pdf}{A logical value indicating whether the plot is a pdf.}
+\item{plot2pdf}{A logical value indicating whether the plot is a pdf. Default value is FALSE.}
 }
 \value{
 genes: selected genes
@@ -39,7 +39,10 @@ resT: multtest
 topTable: limma
 }
 \description{
-Description quickAnalysis
+La función quickAnalysis realiza para una matriz de datos donde las filas corresponden a los genes y las columnas a las muestras un
+análisis de expresión diferencial entre dos grupos concretos. Para el análisis usa dos métodos: un t.test para comparaciones multiples
+(tabla resultante: reT) y un análisis limma básico (tabla resultante: topTable). Además, para aquellos genes diferencialmente expresados
+realiza los boxplots para cada uno de los grupos.
 }
 \examples{
 par(mfrow=c(2,2))
@@ -48,7 +51,7 @@ groupingVar = pData(sampleSet)$group,
 min = "Case", sust = "Control", pvalThreshold = 0.25)
 }
 \author{
-Alex Sánchez\email{alex.sanchez@vhir.org} , Miriam Mota  \email{miriam.mota@vhir.org}
+Alex Sánchez \email{alex.sanchez@vhir.org} , Miriam Mota  \email{miriam.mota@vhir.org}
 }
 \keyword{differential}
 \keyword{expression}

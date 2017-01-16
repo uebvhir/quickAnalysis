@@ -1,6 +1,9 @@
 #' quickAnalysis Function
 #'
-#' Description quickAnalysis
+#' La función quickAnalysis realiza para una matriz de datos donde las filas corresponden a los genes y las columnas a las muestras un
+#' análisis de expresión diferencial entre dos grupos concretos. Para el análisis usa dos métodos: un t.test para comparaciones multiples
+#' (tabla resultante: reT) y un análisis limma básico (tabla resultante: topTable). Además, para aquellos genes diferencialmente expresados
+#' realiza los boxplots para cada uno de los grupos.
 #' @param expres a matrix-like data object containing log-expression or numeric values, with rows corresponding to genes and columns to samples.
 #' @param groupingVar factor which codes the grouping to be tested. There must be 1 or 2 groups.The length of the factor needs to correspond to the sample size.
 #' @param min minuend
@@ -9,12 +12,12 @@
 #' @param outputDir the path to the output file.
 #' @param outputFType character string with the abbreviation for extension: "xls" or "html. Default value is NULL.
 #' @param pvalThreshold setting the threshold p-value. Default value is 1.
-#' @param useAdjP a logical value indicating use adjust p-value.
-#' @param plotSelected  A logical value indicating whether the output is a plot.
-#' @param plot2pdf A logical value indicating whether the plot is a pdf.
+#' @param useAdjP a logical value indicating use adjust p-value. Default value is TRUE.
+#' @param plotSelected  A logical value indicating whether the output is a plot. Default value is TRUE.
+#' @param plot2pdf A logical value indicating whether the plot is a pdf. Default value is FALSE.
 #' @export quickAnalysis
 #' @import beeswarm multtest limma xlsx hwriter
-#' @author Alex Sánchez\email{alex.sanchez@@vhir.org} , Miriam Mota  \email{miriam.mota@@vhir.org}
+#' @author Alex Sánchez \email{alex.sanchez@@vhir.org} , Miriam Mota  \email{miriam.mota@@vhir.org}
 #' @examples
 #' par(mfrow=c(2,2))
 #' quickAnalysis(expres = exprs(sampleSet),
@@ -75,11 +78,11 @@ quickAnalysis <- function(expres, groupingVar,
 
   top.Diff.all <- topTable(fit.main, n = nrow(expres), adjust = "fdr")
 
-  top.Diff.all[,paste0("mean",levels(groupingVar)[2])] <-
-    apply(expres,1, function(x) mean(x[groupingVar == levels(groupingVar)[2]]))[rownames(top.Diff.all)]
+  top.Diff.all[,paste0("mean",min)] <-
+    apply(expres,1, function(x) mean(x[groupingVar == min]))[rownames(top.Diff.all)]
 
-  top.Diff.all[,paste0("mean",levels(groupingVar)[1])] <-
-    apply(expres,1, function(x) mean(x[groupingVar == levels(groupingVar)[1]]))[rownames(top.Diff.all)]
+  top.Diff.all[,paste0("mean",sust)] <-
+    apply(expres,1, function(x) mean(x[groupingVar == sust]))[rownames(top.Diff.all)]
 
   if (useAdjP) {
     top.Diff <- top.Diff.all[top.Diff.all$adj.P.Val <= pvalThreshold,]
@@ -135,7 +138,7 @@ quickAnalysis <- function(expres, groupingVar,
       boxplot(myExpres[i,]~factor(groupingVar, c(min,sust)), add = T, names = c("",""), col = "#0000ff22")
       # Segons un post de: https://www.r-statistics.com/2011/03/beeswarm-boxplot-and-plotting-it-with-r/
     }
-    if(plot2pdf) {dev.off()}
+    if (plot2pdf) {dev.off()}
     cat(paste("PLOTS are in file", plotsFName, sep = " "), "\n")
   }
   return(list(genes = selectedGenes,
