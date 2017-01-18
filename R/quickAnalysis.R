@@ -138,8 +138,10 @@ quickAnalysis <- function(expres, groupingVar,
       boxplot(myExpres[i,]~factor(groupingVar, c(min,sust)), add = T, names = c("",""), col = "#0000ff22")
       # Segons un post de: https://www.r-statistics.com/2011/03/beeswarm-boxplot-and-plotting-it-with-r/
     }
-    if (plot2pdf) {dev.off()}
-    cat(paste("PLOTS are in file", plotsFName, sep = " "), "\n")
+    if (plot2pdf) {
+      dev.off()
+      cat(paste("PLOTS are in file", plotsFName, sep = " "), "\n")
+    }
   }
   return(list(genes = selectedGenes,
               resT = resT,
