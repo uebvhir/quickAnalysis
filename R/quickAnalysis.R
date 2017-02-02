@@ -91,7 +91,7 @@ quickAnalysis <- function(expres, groupingVar,
   }
 
   gNames.limma <- rownames(top.Diff)
-  selectedGenes <- union(gNames.multtest, gNames.limma)
+  selectedGenes <- union(gNames.limma, gNames.multtest)
 
   top.Diff.common <- top.Diff.all[selectedGenes, ]
   resT.common <- resT[selectedGenes, ]
