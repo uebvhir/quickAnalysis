@@ -43,6 +43,7 @@ quickAnalysis <- function(expres, groupingVar,
   ### ANALYSIS USING multtest library
   print(paste("ANALYSIS using multtest library"))
   resT <- mt.maxT(expres, classlabel = groupingVar)
+  resT <- resT[order(resT$rawp),]
   if (useAdjP) {
     resT.selected <- resT[resT$adjp <= pvalThreshold,]
   }else{
