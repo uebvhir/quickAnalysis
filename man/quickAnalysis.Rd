@@ -60,4 +60,3 @@ Alex Sánchez \email{alex.sanchez@vhir.org} , Miriam Mota  \email{miriam.mota@vh
 \keyword{multtest}
 \keyword{plot}
 \keyword{quickAnalysis}
-
